@@ -1,0 +1,182 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+    background: purple;
+}
+
+.container{
+    height: 90vh;
+    width: 90vw;
+    display: grid;
+    grid-template-columns: 20% 45% 35%;
+    overflow:auto;
+    background: #fff;
+    border-radius: 15px;
+}
+
+.left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    padding: 10px 20px;
+    border-right: 2px solid rgba(176, 174, 174, 0.429);
+}
+
+.lcontainer{
+    padding: 5px;
+    text-align: center;
+}
+.imgbox{
+    height: 200px;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.imgbox img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+
+
+.middle
+{
+    padding: 20px 25px;
+    border-right: 2px solid rgba(176, 174, 174, 0.429);
+    overflow: auto;
+}
+
+.middle .Rcontainer{
+    height: 580px;
+    width: 550px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.Rcontainer h2{
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.Rcontainer .form-container{
+    height: 100%;
+    width: 100%;
+}
+
+.form-container p{
+    margin-bottom: 3px;
+}
+
+.form-container form .name,.country{
+    display: flex;
+    gap: 10px;
+}
+
+form .name .input-box{
+    width: 100%;
+}
+form .country .input-box{
+    width: 100%;
+}
+
+.form-container form .inputB{
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+
+.form-container form .inputB input{
+    width: 100%;
+    padding:12px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    color: rgba(211, 211, 211, 0.769);
+    
+}
+
+.form-container form .inputB textarea{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    color: rgba(211, 211, 211, 0.769);  
+}
+
+.form-container .btn{
+    width: 100%;
+    text-align: center;
+
+}
+
+.btn button{
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    background: rgb(180, 17, 180);
+    color: #fff;
+    border-radius: 3px;
+    transition: .3s ease;
+}
+
+.btn button:hover{
+    background: rgb(147, 7, 147);
+    transform: scale(.9);
+}
+
+
+
+
+
+.right{
+    padding: 20px 25px;
+    overflow: auto;
+}
+
+.right .Rbox .top{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top h3{
+    font-size: 18px;
+    color: rgba(102, 102, 102, 0.963); 
+}
+
+.top .box{
+    padding: 10px 40px;
+    border: 1px solid rgba(159, 159, 159, 0.769);
+    color: rgba(102, 102, 102, 0.963)
+}
+
+.Rbox form{
+    margin-top: 15px;
+    padding: 15px 20px;
+}
+
+form  .inputB{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+form p{
+    margin-bottom: 5px;
+}
+
+.inputB input{
+    width: 100%;
+    padding:12px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    color: rgba(211, 211, 211, 0.769);
+}

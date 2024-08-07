@@ -1,0 +1,275 @@
+CREATE TABLE Employees (
+    EM_ID INT PRIMARY KEY,
+    FIRST_NAME VARCHAR(50),
+    LAST_NAME VARCHAR(50),
+    SALARY DECIMAL(10, 2),
+    JOINING_DATE DATE,
+    DEPARTMENT VARCHAR(50)
+);
+
+INSERT INTO Employees (EM_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT)
+VALUES
+(1, 'JOHN', 'ABRAHAM', 1000000, '2013-01-01', 'BANKING'),
+(2, 'MICHAEL', 'CLERK', 800000, '2013-01-01', 'INSURANCE'),
+(3, 'ROY', 'THOMAS', 700000, '2013-02-01', 'BANKING'),
+(4, 'TOM', 'JOSE', 600000, '2013-02-01', 'INSURANCE'),
+(5, 'JERRY', 'PINTO', 650000, '2013-01-01', 'INSURANCE'),
+(6, 'PHILIP', 'MATHEW', 750000, '2013-01-01', 'SERVICES'),
+(7, 'TESTNAME1', '123', 650000, '2013-01-01', 'SERVICES'),
+(8, 'TESTNAME2', 'LNAME%', 600000, '2013-02-01', 'INSURANCE');
+
+CREATE TABLE Incentives (
+    INCENTIVE_ID INT PRIMARY KEY,
+    EMPLOYEE_REF_ID INT,
+    INCENTIVE_DATE DATE,
+    INCENTIVE_AMT DECIMAL(10, 2),
+    FOREIGN KEY (EMPLOYEE_REF_ID) REFERENCES Employees(EM_ID)
+);
+
+INSERT INTO Incentives (INCENTIVE_ID, EMPLOYEE_REF_ID, INCENTIVE_DATE, INCENTIVE_AMT)
+VALUES
+(1, 1, '2013-02-01', 5000),
+(2, 2, '2013-02-01', 3000),
+(3, 3, '2013-02-01', 4000),
+(4, 1, '2013-01-01', 4500),
+(5, 2, '2013-01-01', 3500);
+
+
+
+--------------------- SOLUTION OF QUERY------------------
+
+[a]->Get First_Name from employee table using alias name “Employee Name”. 
+=>SELECT FIRST_NAME AS "Employee Name"
+FROM Employees;
+
+[b]Get FIRST_NAME, Joining year, Joining Month and Joining Date from employee
+table.
+=> SELECT 
+    FIRST_NAME,
+    YEAR(JOINING_DATE) AS "Joining Year",
+    MONTH(JOINING_DATE) AS "Joining Month",
+    DAY(JOINING_DATE) AS "Joining Date"
+FROM Employees;
+
+[c]Get all employee details from the employee table order by First Name Ascending
+And Salary descending?
+=>SELECT *
+FROM Employees
+ORDER BY FIRST_NAME ASC, SALARY DESC;
+
+[d]Get employee details from employee table whose first name contains „o‟
+=>
+SELECT *
+FROM Employees
+WHERE FIRST_NAME LIKE '%o%';
+
+[e]Get employee details from employee table whose joining month is “January”. 
+=>SELECT *
+FROM Employees
+WHERE MONTH(JOINING_DATE) = 1;
+
+[f]Get department, total salary with respect to a department from employee table
+Order By total salary descending.
+=>SELECT 
+    DEPARTMENT,
+    SUM(SALARY) AS "Total Salary"
+FROM Employees
+GROUP BY DEPARTMENT
+ORDER BY "Total Salary" DESC;
+
+[g]Get department wise maximum salary from employee table order by salary
+ascending? 
+=>SELECT 
+    DEPARTMENT,
+    MAX(SALARY) AS "Maximum Salary"
+FROM Employees
+GROUP BY DEPARTMENT
+ORDER BY "Maximum Salary" ASC;
+
+[h]Select first_name, incentive amount from employee and incentives table for those
+Employees who have incentives and incentive amount greater than 3000
+=>SELECT 
+    E.FIRST_NAME,
+    I.INCENTIVE_AMT
+FROM 
+    Employees E
+JOIN 
+    Incentives I ON E.EM_ID = I.EMPLOYEE_REF_ID
+WHERE 
+    I.INCENTIVE_AMT > 3000;
+
+[i]Select 2nd Highest salary from employee table
+=>SELECT DISTINCT
+    SALARY
+FROM Employees
+ORDER BY SALARY DESC
+LIMIT 1 OFFSET 1;
+
+[j] Select first_name, incentive amount from employee and incentives table for all
+Employees who got incentives using left join. 
+=>SELECT 
+    E.FIRST_NAME,
+    I.INCENTIVE_AMT
+FROM 
+    Employees E
+LEFT JOIN 
+    Incentives I ON E.EM_ID = I.EMPLOYEE_REF_ID;
+
+[k] Create View OF Employee table in which store first name, last name and salary
+only. 
+=>CREATE VIEW EmployeeDetails AS
+SELECT 
+    FIRST_NAME,
+    LAST_NAME,
+    SALARY
+FROM Employees;
+
+SELECT * FROM EmployeeDetails;
+
+[l]Create Procedure to find out department wise highest salary. 
+=>DELIMITER //
+
+CREATE PROCEDURE GetDepartmentWiseHighestSalary()
+BEGIN
+    SELECT 
+        DEPARTMENT,
+        MAX(SALARY) AS Highest_Salary
+    FROM Employees
+    GROUP BY DEPARTMENT;
+END //
+
+DELIMITER ;
+
+[m]Create after Insert trigger on Employee table which insert records in view table. 
+=>DELIMITER //
+
+CREATE TRIGGER AfterEmployeeInsert
+AFTER INSERT ON Employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO EmployeeDetails (FIRST_NAME, LAST_NAME, SALARY)
+    VALUES (NEW.FIRST_NAME, NEW.LAST_NAME, NEW.SALARY);
+END //
+
+DELIMITER ;
+
+
+--------------------------------------------------------------------------------------
+
+CREATE TABLE Records (
+    ONM INT PRIMARY KEY,
+    AMT VARCHAR(50),
+    ODE DATE,
+    CNM INT,
+    SNO INT
+);
+INSERT INTO Records (ONM, AMT, ODE, CNM, SNO) VALUES
+(3001, '18.69', '1994-10-03', 201, 1007),
+(3002, '1900.1', '1994-10-03', 207, 1004),
+(3003, '767-19', '1994-10-03', 201, 1001),
+(3005, '3005', '1994-10-03', 203, 1002),
+(3006, '3006', '1994-10-04', 201, 1007),
+(3007, '3007', '1994-10-05', 204, 1002),
+(3008, '3008', '1994-10-05', 206, 1001),
+(3009, '3009', '1994-10-04', 202, 1003),
+(3010, '3010', '1994-10-06', 204, 1002),
+(3011, '3011', '1994-10-06', 206, 1001);
+
+CREATE TABLE SALES_PERSON (
+    SNO INT PRIMARY KEY,
+    SNAME VARCHAR(50),
+    CITY VARCHAR(50),
+    COMM DECIMAL(5, 2)  -- Commission as a decimal number with 2 decimal places
+);
+CREATE TABLE CUSTOMER (
+    CNM INT PRIMARY KEY,
+    CNAME VARCHAR(100),
+    CITY VARCHAR(50),
+    RATING INT,
+    SNO INT,  -- Foreign key to SALES_PERSON
+    FOREIGN KEY (SNO) REFERENCES SALES_PERSON(SNO)  -- Establishes the relationship with SALES_PERSON
+);
+-- Insert into SALES_PERSON
+INSERT INTO SALES_PERSON (SNO, SNAME, CITY, COMM) VALUES
+(1001, 'PEEL', 'LONDON', 0.12),
+(1002, 'SERRES', 'SAN JOSE', 0.13),
+(1003, 'AXELROD', 'NEW YORK', 0.10),
+(1004, 'ΜΟΤΙΚΑ', 'LONDON', 0.11),
+(1007, 'RAFKIN', 'BARCELONA', 0.15);
+
+-- Insert into CUSTOMER
+INSERT INTO CUSTOMER (CNM, CNAME, CITY, RATING, SNO) VALUES
+(201, 'HOFFMAN', 'LONDON', 100, 1001),
+(202, 'GIOVANNE', 'ROME', 200, 1003),
+(203, 'LIU', 'SAN JOSE', 300, 1002),
+(204, 'GRASS', 'BARCELONA', 100, 1002),
+(206, 'CLEMENS', 'LONDON', 300, 1007),
+(207, 'PEREIRA', 'ROME', 100, 1004);
+
+
+-----------------------------SOLUTION OF QUERY------------------------
+a) All orders for more than $1000.
+=>SELECT *
+FROM Orders
+WHERE Amount > 1000;
+
+b) Names and cities of all salespeople in London with commission above 0.10. 
+=>SELECT SNAME, CITY
+FROM SALES_PERSON
+WHERE CITY = 'LONDON'
+  AND COMM > 0.10;
+
+c) All salespeople either in Barcelona or in London
+=>SELECT *
+FROM SALES_PERSON
+WHERE CITY IN ('BARCELONA', 'LONDON');
+
+d) All salespeople with commission between 0.10 and 0.12. (Boundary values should
+be excluded). 
+=>SELECT *
+FROM SALES_PERSON
+WHERE COMM > 0.10
+  AND COMM < 0.12;
+
+e) All customers with NULL values in city column. 
+=>SELECT *
+FROM CUSTOMER
+WHERE CITY IS NULL;
+
+f) All orders taken on Oct 3Rd and Oct 4th 1994
+=>SELECT *
+FROM Orders
+WHERE OrderDate IN ('1994-10-03', '1994-10-04');
+
+g) All customers serviced by peel or Motika. 
+=>SELECT C.*
+FROM CUSTOMER C
+JOIN SALES_PERSON S ON C.SNO = S.SNO
+WHERE S.SNAME IN ('PEEL', 'ΜΟΤΙΚΑ');
+
+h) All customers whose names begin with a letter from A to B 
+=>
+SELECT *
+FROM CUSTOMER
+WHERE CNAME LIKE 'A%' OR CNAME LIKE 'B%';
+
+i) All customers excluding those with rating <= 100 unless they are located in Rome. 
+=>SELECT *
+FROM CUSTOMER
+WHERE (RATING > 100) OR (CITY = 'ROME');
+
+j) All orders except those with 0 or NULL value in amt field. 
+=>SELECT *
+FROM Orders
+WHERE amt IS NOT NULL
+  AND amt <> 0;
+
+k) Count the number of salespeople currently listing orders in the order table. 
+=>SELECT COUNT(DISTINCT O.SNO) AS NumberOfSalespeople
+FROM Orders O
+JOIN SALES_PERSON S ON O.SNO = S.SNO;
+
+
+
+
+

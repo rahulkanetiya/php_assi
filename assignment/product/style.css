@@ -1,0 +1,125 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    background: #fff;
+    display: grid;
+    place-items: center;
+}
+
+.list{
+    height: 600px;
+    width: 1100px;
+    background: rgba(211, 211, 211, 0.598);
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    place-items: center;
+    box-shadow: 5px 10px 10px rgba(159, 157, 157, 0.744);
+}
+
+.box{
+    height:260px;
+    width: 500px;
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+    box-shadow: 5px 10px 10px rgba(159, 157, 157, 0.744);
+    transition: all 0.3s ease-out;
+}
+
+.box:hover{
+    transform: scale(1.05);
+}
+
+.box .imgbox{
+    height: 240px;
+    width: 300px;
+    margin-right: 10px;
+}
+
+.box .imgbox img{
+    width: 100%;
+    height: 100%;
+}
+
+.box .right{
+    padding: 10px;
+}
+
+
+
+.right .head {
+    margin-bottom: 10px;
+}
+
+.box .right h5{
+    font-size: 20px;
+    color: rgb(98, 185, 185);
+}
+
+.right .head p{
+    color: rgb(130, 128, 128);
+}
+
+
+.right .price{
+    font-size: 30px;
+    color: rgb(0, 104, 99);
+    margin-bottom: 10px;
+}
+
+
+.right p{
+    font-size: 15px;
+    margin: 10px 0;
+}
+
+.right .btn{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.btn button{
+    width: 100%;
+    padding: 10px 15px;
+    border:none;
+    outline: none;
+    background: rgb(98, 185, 185);
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 18px;
+    transition:all 0.3s ease-in;
+}
+
+.btn .red{
+    background: rgb(228, 37, 37);
+}
+
+.btn button:hover{
+    transform: scale(.95);
+}
+
+
+
+.right .rating{
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+}
+
+.rating i{
+    font-size: 15px;
+    color: rgb(255, 162, 0);
+}
